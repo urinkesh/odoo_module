@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_discount_feature_report_invoice_document" name="product_discount_feature_report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//span[@t-field='line.price_unit']" position="replace">
+            <div t-if="line.discount &gt;= 0" t-field="line.price_unit" t-att-style="line.discount and 'text-decoration: line-through' or None" t-att-class="(line.discount and 'text-danger' or '') + ' text-end'" />
+            <div t-if="line.discount">
+                <t t-out="(1-line.discount / 100.0) * line.price_unit" t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
